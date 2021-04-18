@@ -15,7 +15,8 @@ app.config['MONGODB_SETTINGS'] = {
 #mongodb+srv://drobe444:derin444@cluster0.p4u4d.mongodb.net/plb_dev?retryWrites=true&w=majority
 #mongodb+srv://userDb:userDb@cluster0.p4u4d.mongodb.net/plb_dev?retryWrites=true&w=majority
 
-DB_URI = "mongodb+srv://drobe444:derin444@cluster0.p4u4d.mongodb.net/plb_dev?retryWrites=true&w=majority"
+#DB_URI = "mongodb+srv://drobe444:derin444@cluster0.p4u4d.mongodb.net/plb_dev?retryWrites=true&w=majority"
+DB_URI = os.environ.get('MONGODB_URI', None)
 app.config['MONGODB_SETTINGS'] = {
     'host': os.environ.get('MONGODB_URI', DB_URI)
 }
@@ -93,7 +94,7 @@ def create_record():
 
 #@app.route('/find', methods=['GET'])
 def findAll():
-    client = pymongo.MongoClient("mongodb+srv://drobe444:derin444@cluster0.p4u4d.mongodb.net/plb_dev?retryWrites=true&w=majority")
+    client = pymongo.MongoClient(DB_URI)
     db1 = client.get_database('plb_dev')
     records = db1.patient_col
     temp = list(records.find().skip(records.count() - 1))
