@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block title %}Form{% endblock %} {% block
+    content %}
+<!DOCTYPE html>
+<script>
+    function show_alert() {
+  alert("Patient Details added successfully");
+}
+</script>
+<head>
+
+<body>
+        <h1>Patient Details</h1>
+        <div style="height: 40px;"></div>
+        <div class="container;" style="padding-left: 35%;">
+            
+            <div style="display: inline-block;width: 75%;">
+                <form id="form" action="/add" method="post">
+                    <label for="name">Name:<span style="color: red">*</span></label>
+                    <input type="text" name="Patient_Name" id="Patient_Name" style="width: 250px;" required>
+                    <br><br>
+                    <label for="phone">Phone Number:<span style="color: red">*</span></label>
+                    <input type="text" name="Contact_Details" id="Contact_Details" style="width: 250px;" required>
+                    <br><br>
+                    <label for="age">Age:<span style="color: red">*</span></label>
+                    <input type="number" name="Age" id="Age" style="width: 250px;" required>
+                    <br><br>
+                    <label for="sex">Gender:<span style="color: red">*</span></label></label>
+                    <br>
+                    <input type="radio" name="Gender" value="M" >Male
+                    <br>
+                    <input type="radio" name="Gender" value="F"  >Female
+                    <br>
+                    <input type="radio" name="Gender" value="O" >Others
+                    <br><br>
+                    <label for="mh">Medical History &nbsp<span style="color: red">*</span></label>
+                    <textarea style="border: 2px solid tomato;width: 250px;" rows="4" cols="30" id="Medical_History" name="Medical_History" form="form" required></textarea>
+                    <!-- <input type="text" name="med" id="medInput"style="width: 250px;" required> -->
+                
+                    <br><br>
+                
+                    <label for="inv">Investgations &nbsp Done:<span style="color: red">*</span></label>
+                    <input type="text" name="Investigations_Done" id="Investigations_Done"style="width: 250px;" required>
+                     <br><br>
+                
+                     <label for="diag">Diagnosis: &nbsp<span style="color: red">*</span></label>
+                     <textarea style="border: 2px solid tomato;width: 250px;" rows="4" cols="30" id="Diagnosis" name="Diagnosis" form="form" required></textarea>
+                     <!-- <input type="text" name="diag" id="diagInput"style="width: 250px;" required> -->
+                     <!-- <input type="submit" name="submit" value="Submit"style="width: 250px;">   -->
+                </form>
+<button class ="button" type="submit" form="form" value="Submit" onclick="show_alert();" style="margin-left: 20%;padding-top: 16px;padding-bottom: 32px;padding-left: 64px;padding-right: 128px;" >Register</button>
+</div>
+<div style="height: 125px;"></div>
+<footer>
+    <div class="footer" style="left: 0px;">
+        <div style="width: 40%;float:left; color: white;height: 100%;margin-left: 10%;position: relative;">
+            <h2
+                style="font-family: 'Roboto';font-weight: 400;letter-spacing: 2px;margin-bottom: 25px;margin-top: 25px;">
+                <span class="fas fa-heart" id="love"></span> Meenakshi Dental Medicine Center </h2>
+        </div>
+</footer>
+</body>
+
+</body>
+
+
+</html>
+{% endblock %}

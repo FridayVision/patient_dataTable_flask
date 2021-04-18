@@ -1,0 +1,406 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Patient Data</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>  
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+   
+
+
+
+        <link rel="icon" href="./assets/icon.ico" type="image/x-icon" />
+        <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="icon" href="./assets/icon.ico" type="image/x-icon" />
+        <style>
+
+    
+            @font-face {
+                font-family: "samarkhan";
+                src: url(./font/samarkhan.ttf);
+            }
+    
+            ul.topnav h5 {
+                text-decoration: none;
+                color: white;
+                padding: 0px;
+                margin: 0px 50px;
+                height: 60px;
+                display: inline-block;
+                font-family: samarkhan;
+            }
+    
+            ul.topnav {
+                list-style-type: none;
+                width: 100%;
+                background-color: #f15652;
+                margin: 0;
+                top: 0;
+                padding: 0;
+                z-index: 1;
+                overflow: hidden;
+            }
+    
+            ul.topnav li a {
+                display: block;
+                position: relative;
+                right: 0;
+                color: white;
+                text-align: center;
+                font-family: 'IBM Plex Sans', sans-serif;
+                margin: 0px;
+                padding: 20px 10px 20px 10px;
+                ;
+                font-size: 18px;
+                /* height: 80px; */
+                text-decoration: none;
+            }
+    
+            label {
+                display: inline-block;
+                width: 160px;
+            }
+    
+            input {
+                display: inline-block;
+                background-color: #FFF;
+                height: 30px;
+                width: 150px;
+                border: 2px solid tomato;
+            }
+    
+            ul.topnav li a:hover {
+                background-color: darksalmon;
+            }
+    
+            ul.topnav li {
+                float: left;
+            }
+            ul.topnav h5{
+                float: right;
+            }
+    
+            .title {
+                color: black;
+                margin: auto;
+                width: 30%;
+            }
+    
+       
+    
+            .underline {
+                background-color: #f15652;
+                height: 3px;
+                width: 5%;
+                margin: auto
+            }
+    
+            h1 {
+                font-family: 'IBM Plex Sans', sans-serif;
+                text-align: center;
+                color: #000;
+                font-size: 40px;
+                font-weight: 50;
+                margin: 20px 0px;
+            }
+    
+      
+    
+         
+          
+    
+        
+         
+          
+    
+    
+         
+    
+    
+    
+            .footer {
+                font-size: 15px;
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                background-color: #000;
+                padding: 0px;
+            }
+    
+    
+        </style>
+    </head>
+    
+    <body>
+    
+     <!---
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %} {% if category ==
+        'error' %}
+        <div class="alert alert-danger alter-dismissable fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% else %}
+        <div class="alert alert-success alter-dismissable fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+    
+    --->
+    
+    
+        
+    
+        <ul class="topnav" id="navbar" style="background-color: #f15652">
+            <h5 href="" style="font-family:samarkhan; font-weight: 400; font-size: 50px;margin-left: 55%;margin-right: 0px;">Patient Logbook</h5>
+            <li style="margin-right: 30px;"><a href="/">Home</a></li>
+            <li style="margin-right: 30px;"><a id="searchUp" href="/search">Search</a></li>
+        </ul>
+        
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" language="javascript">
+$(document).ready(function(){
+    var dataTable = $('#sample_data').DataTable();
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.Patient_Name',
+        url:'/updatepatient',
+        title:'Patient_Name',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+ 
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.Medical_History',
+        url:'/updatepatient',
+        title:'Medical_History',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+ 
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.Contact_Details',
+        url:'/updatepatient',
+        title:'Contact_Details',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.Gender',
+        url:'/updatepatient',
+        title:'Gender',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.Age',
+        url:'/updatepatient',
+        title:'Age',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.Investigations_Done',
+        url:'/updatepatient',
+        title:'Investigations_Done',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.Diagnosis',
+        url:'/updatepatient',
+        title:'Diagnosis',
+
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+});
+
+function del(ID, Patient_Name){
+    if (confirm("Are you sure you want to delete '" + Patient_Name + "'")){
+        window.location.href = '/delete/' + ID;
+    }
+}
+</script>
+    </head>
+    <body>
+        <div class="container">
+            <h3 align ="center">Patient Data</h3>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Add New Employee
+                </button>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="sample_data" class="table table-bordered table-striped" style="width: 100%">
+                            <thead>
+                                <tr>
+
+                                  <th>Patient_ID</th>
+                                  <th>Patient_Name</th>
+                                  <th>Medical_History</th>
+                                  <th>Contact_Details</th>
+                                  <th>Age</th>
+                                  <th>Gender</th>
+                                  <th>Investigations_Done</th>
+                                  <th> Patient_Diagnosis</th>
+                                  <th>Submit_time</th>
+                                  <th>Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in patient %}
+                                <tr>
+                                    <!-- <td data-pk="{{row.id}}">{{row.id}}</td> -->
+
+                                    <td data-name="Legacy_ID" class="Legacy_ID" data-type="number" data-pk="{{row.id}}">{{row.Legacy_ID}}</td>
+                                    
+                                    
+                                    <td data-name="Patient_Name" class="Patient_Name" data-type="text" data-pk="{{row.id}}">{{row.Patient_Name}}</td>
+                                    <td data-name="Medical_History" class="Medical_History" data-type="text" data-pk="{{row.id}}">{{row.Medical_History}}</td>
+                                    <td data-name="Contact_Details" class="Contact_Details" data-type="text" data-pk="{{row.id}}">{{row.Contact_Details}}</td>
+                                    <td data-name="Age" class="Age" data-type="text" data-pk="{{row.id}}">{{row.Age}}</td>
+                                    <td data-name="Gender" class="Gender" data-type="text" data-pk="{{row.id}}">{{row.Gender}}</td>
+                                    <td data-name="Investigations_Done" class="Investigations_Done" data-type="text" data-pk="{{row.id}}">{{row.Investigations_Done}}</td>
+                                    <td data-name="Diagnosis" class="Diagnosis" data-type="text" data-pk="{{row.id}}">{{row.Diagnosis}}</td>
+                                    <td data-name="Submit_time" class="Submit_time" data-type="text" data-pk="{{row.id}}">{{row.Submit_time}}</td>
+                                    
+
+                                    <td><a href="javascript:del('{{row.id}}','{{row.Patient_Name}}')" class="btn btn-primary">Delete</a></td>
+                                    
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+             
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" method="post" action="/add">
+            <div class="form-group">
+              <label class="col-form-label">Patient_Name:</label>
+              <input type="text" class="form-control" id="Patient_Name" name="Patient_Name">
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Age:</label>
+              <input type="text" class="form-control" id="Age" name="Age">
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Gender:</label>
+              <input type="text" class="form-control" id="Gender" name="Gender">
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Contact_Details:</label>
+              <input type="text" class="form-control" id="Contact_Details" name="Contact_Details">
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Medical_History:</label>
+              <input type="text" class="form-control" id="Medical_History" name="Medical_History">
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Investigations_Done:</label>
+              <input type="text" class="form-control" id="Investigations_Done" name="Investigations_Done">
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Diagnosis:</label>
+              <input type="text" class="form-control" id="Diagnosis" name="Diagnosis">
+            </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input name="cmdsubmit" class="btn btn-primary" type="submit" value="Submit" />
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+        <br/>
+        <br/>
+    </body>
+
+
+</html>
